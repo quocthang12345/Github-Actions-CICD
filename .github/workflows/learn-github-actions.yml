@@ -1,6 +1,17 @@
 name: Github Actions CICD
 run-name: ${{ github.actor }} is praticing Github Actions CICD
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
